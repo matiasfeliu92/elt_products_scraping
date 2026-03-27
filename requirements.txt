@@ -9,3 +9,5 @@ lxml
 openpyxl
 gspread
 google-auth
+databricks-connect 
+pyspark
