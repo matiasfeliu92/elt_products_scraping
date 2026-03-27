@@ -1,0 +1,11 @@
+selenium
+pandas
+requests
+sqlalchemy
+psycopg2-binary
+webdriver_manager
+beautifulsoup4
+lxml
+openpyxl
+gspread
+google-auth

@@ -1,0 +1,7 @@
+scraping
+.env
+__pycache__/
+logs
+data
+GCP_credentials
+.gitkeep
