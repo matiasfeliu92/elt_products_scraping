@@ -5,7 +5,7 @@ load_dotenv()
 
 class Settings:
     BASE_DIR = os.getcwd()
-    GOOGLE_CREDENTIALS = os.path.join(BASE_DIR, os.getenv("GOOGLE_CREDENTIALS"))
+    GOOGLE_CREDENTIALS = os.path.join(BASE_DIR, os.getenv("GOOGLE_CREDENTIALS_PATH"))
     GOOGLE_SCOPES = [
         "https://www.googleapis.com/auth/spreadsheets",
         "https://www.googleapis.com/auth/drive"
@@ -30,6 +30,7 @@ class Settings:
             "Depiladoras": (15, 40) # Generalmente hay mucho stock
         }
     }
+    MONGO_DB_URI = os.getenv("MONGO_DB_URI")
 
     @classmethod 
     def get_dir(cls, *args) -> str: 
