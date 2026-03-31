@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from src.scripts.load_data import LoadData
 from src.config.logger import LoggerConfig
 from src.scripts.scraping import Scraping
 from src.config.settings import Settings
@@ -13,11 +14,13 @@ class ExtractData:
         self.logger = LoggerConfig.get_logger(self.__class__.__name__)
         self.all_products_data = []
         self.retailers = self.settings.RETAILERS
+        self.load_data = LoadData()
 
     def extract(self, input_product_catalog, retailer):
         try:         
             self.logger.info(f"Scraping process for retailer {retailer} will start now")
             input_product_catalog = input_product_catalog[input_product_catalog["retailer"] == retailer] if retailer else input_product_catalog
+            self.logger.info(f"Total products to scrap: {len(input_product_catalog)}")
             for _, row in input_product_catalog.iterrows():
                 try:
                     scraped_at = datetime.now().strftime('%Y-%m-%d')
@@ -33,6 +36,7 @@ class ExtractData:
                         "retailer": retailer,
                         "data": product_data
                     }
+                    self.load_data.load(product_data_formatted)
                     self.logger.info("Scraping process run successfuly")
                 except Exception as e:
                     self.logger.error(f"Error scraping product {product_id}: {str(e)}")
