@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from src.config.logger import LoggerConfig
+from src.config.settings import Settings
 from src.config.mongo_db import MongoDB
 
 class LoadErrors:
