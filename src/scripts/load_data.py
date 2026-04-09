@@ -17,6 +17,7 @@ class LoadData:
         self.normalize_price = NormalizePrice()
         self.settings = Settings()
         self.mongo_db = MongoDB()
+        self.mongo_db_uri = self.settings.MONGO_DB_URI
 
     def load(self, __data__: dict):
         try:
@@ -43,7 +44,7 @@ class LoadData:
             })
             self.logger.info(f"DATA TO LOAD: {json.dumps(__data__, indent=2)}")
 
-            self.mongo_db.connect(db_name="products")
+            self.mongo_db.connect(self.mongo_db_uri, db_name="products")
             scraped_products_collection = self.mongo_db.get_database()["scraped_products"]
 
             last_entry = scraped_products_collection.find_one(
