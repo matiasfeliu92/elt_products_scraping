@@ -16,7 +16,11 @@ class ScrapingSettings:
     def __init__(self):
         self.USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
         self.INPUTS_DIR = "C:\Documentos\data_projects\inputs_for_pipelines"
+        self.FRAVEGA_API_URL = "https://www.fravega.com/api/catalog_system/pub/products/search?fq=skuId:{sku}"
+        self.NALDO_API_URL = "https://www.naldo.com.ar/api/catalog_system/pub/products/search?fq=skuId:{sku}"
+        self.CETROGAR_API_URL = "https://www.cetrogar.com.ar/api/catalog_system/pub/products/search?fq=skuId:{sku}"
         self.MEGATONE_SELECTORS = {
+            "JSON_DATA": "//head//script[@type='application/ld+json' or contains(text(), 'productoResumen')]",
             "PRODUCT_TITLE": "/html/body/main/section/div[1]/section[3]/h1",
             "SKU": "/html/body/main/section/div[1]/section[2]/div[1]",
             "BRAND": '/html/body/main/section/div[1]/section[1]/nav/a[5]',
@@ -30,6 +34,7 @@ class ScrapingSettings:
             "DESCRIPTION": "//div[contains(@class, 'Descripcion')]//article//p"
         }
         self.FRAVEGA_SELECTORS = {
+            "JSON_DATA": "//script[@id='__NEXT_DATA__']",
             "PRODUCTO_NO_DISPONIBLE": '//*[@id="__next"]/div[2]/div[2]/div[3]/div[2]/section/p/b',
             "PRODUCT_TITLE": '//*[@id="__next"]/div[2]/div[2]/div[3]/div[2]/div/div[2]/h1',
             "SKU": '//*[@id="__next"]/div[2]/div[2]/div[5]/div[1]/div/div[1]/div/p[2]',
@@ -54,6 +59,7 @@ class ScrapingSettings:
             "DESCRIPTION": ""
         }
         self.NALDO_SELECTORS = {
+            "JSON_DATA": "//script[@type='application/ld+json']",
             "PRODUCT_TITLE": "h1 span",
             "SKU": "span.vtex-product-identifier-0-x-product-identifier__value",
             "BRAND": "//span[contains(@class, 'productBrandName')]",
@@ -61,6 +67,18 @@ class ScrapingSettings:
             "PRICE_MOSTRADO": "//span[contains(@class, 'sellingPriceValue')]",
             "PRICE_TACHADO": "//span[contains(@class, 'listPriceValue')]", ##listPriceValue
             "INSTALLMENTS": "//p[contains(@class, 'cuotasNumber')]", ##cuotasNumber
+            "BUTTON_ADD_TO_CART": "",
+            "DESCRIPTION": ""
+        }
+        self.CETROGAR_SELECTORS = {
+            "JSON_DATA": "//script[contains(@id, '__NEXT_DATA__')]",
+            "PRODUCT_TITLE": "h1",
+            "SKU": "//div[@data-fs-product-title-addendum='true']",
+            "BRAND": "",
+            "CATEGORY_PATH": "//nav[@data-testid='fs-breadcrumb']",
+            "PRICE_MOSTRADO": "//span[@data-testid='price']",
+            "PRICE_TACHADO": "//span[@data-testid='list-price']", ##price-standard
+            "INSTALLMENTS": "//section[@data-fs-payment-matrix='true']", ##installment-info
             "BUTTON_ADD_TO_CART": "",
             "DESCRIPTION": ""
         }
