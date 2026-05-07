@@ -16,7 +16,15 @@ class ExtractElements:
     def safe_find_elements(self, by, path, field=None, product_id=None, retailer=None, multiple=False, timeout=20):
         try:
             wait = WebDriverWait(self.driver, timeout)
-            wait.until(EC.visibility_of_element_located((by, path)))
+                # 👇 lógica clave
+            if field == "script" or (path and "script" in path):
+                condition = EC.presence_of_all_elements_located((by, path)) if multiple \
+                            else EC.presence_of_element_located((by, path))
+            else:
+                condition = EC.visibility_of_element_located((by, path)) if not multiple \
+                            else EC.presence_of_all_elements_located((by, path))
+
+            wait.until(condition)
             if multiple:
                 self.logger.info("MULTIPLE")
                 elements = self.driver.find_elements(by, path)
