@@ -7,8 +7,8 @@ class NormalizePrice:
         if value is None:
             return None
 
-        if not isinstance(value, str):
-            return None
+        if not isinstance(value, str) or isinstance(value, int) or isinstance(value, float):
+            return value
 
         # Eliminar espacios
         value = value.strip()
@@ -16,14 +16,17 @@ class NormalizePrice:
         if value == "":
             return None
 
-        # Quitar símbolo $
-        value = value.replace("$", "")
+        if "$" in value:
+            # Quitar símbolo $
+            value = value.replace("$", "")
 
-        # Quitar separadores de miles (.)
-        value = value.replace(".", "")
+        if "." in value:
+            # Quitar separadores de miles (.)
+            value = value.replace(".", "")
 
-        # Reemplazar coma decimal por punto
-        value = value.replace(",", ".")
+        if "," in value:
+            # Reemplazar coma decimal por punto
+            value = value.replace(",", ".")
 
         try:
             number = float(value)
