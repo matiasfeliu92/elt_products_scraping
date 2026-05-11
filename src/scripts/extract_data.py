@@ -32,9 +32,15 @@ class ExtractData:
     def extract(self, input_product_catalog, retailer):
         current_product_id = None
         current_retailer = retailer
+        self.logger.info(input_product_catalog.head())
         try:         
             self.logger.info(f"Extraction process for retailer {retailer} will start now")
-            input_product_catalog = input_product_catalog[input_product_catalog["retailer"] == retailer] if retailer else input_product_catalog
+            input_product_catalog = input_product_catalog[
+                (input_product_catalog["retailer"] == retailer) &
+                (input_product_catalog["is_active"].astype(str).str.upper() == "TRUE")
+            ] if retailer else input_product_catalog[
+                input_product_catalog["is_active"].astype(str).str.upper() == "TRUE"
+            ]
             self.logger.info(f"Total products to extract: {len(input_product_catalog)}")
             for _, row in input_product_catalog.iterrows():
                 try:

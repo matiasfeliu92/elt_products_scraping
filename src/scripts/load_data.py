@@ -90,7 +90,7 @@ class LoadData:
                     self.logger.info("No hubo cambios en precios, no se inserta.")
                     return
 
-            __data__["scraped_at"] = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
+            __data__["scraped_at"] = datetime.utcnow().strftime("%Y-%m-%d")
             scraped_products_collection.insert_one(__data__)
             self.logger.info(f"Producto {product_id} de {retailer} insertado en MongoDB Atlas")
 
